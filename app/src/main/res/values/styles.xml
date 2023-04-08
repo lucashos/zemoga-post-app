@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PostListTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PostListBody" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PostDetailTitle" parent="TextAppearance.MaterialComponents.Headline4" />
+
+    <style name="PostDetailBody" parent="PostListBody" />
+
+    <style name="PostDetailComments" parent="TextAppearance.MaterialComponents.Headline6" />
+
+    <style name="PostDetailAuthor" parent="TextAppearance.MaterialComponents.Caption" />
+
+    <style name="PostCommentAuthor" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/teal_700</item>
+    </style>
+    <style name="PostCommentBody" parent="TextAppearance.MaterialComponents.Caption" />
+
+</resources>

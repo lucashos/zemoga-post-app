@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/post_detail_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/dimen_medium"
+        android:paddingTop="@dimen/dimen_large"
+        android:paddingBottom="@dimen/dimen_small">
+
+        <TextView
+            android:id="@+id/tv_post_detail_title"
+            style="@style/PostDetailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Post Title" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_author"
+            style="@style/PostDetailAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_tiny"
+            tools:text="Post author" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_body"
+            style="@style/PostDetailBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_medium"
+            tools:text="Post body" />
+
+
+        <TextView
+            android:id="@+id/tv_post_detail_comment_user"
+            style="@style/PostDetailComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_medium"
+            android:text="@string/post_comments" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>
