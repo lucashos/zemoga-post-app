@@ -2,6 +2,7 @@ package com.example.zemoga
 
 import android.app.Application
 import com.example.zemoga.core.coreModule
+import com.example.zemoga.data.dataModule
 import com.example.zemoga.domain.domainModule
 import com.example.zemoga.feature.featureModule
 import org.koin.android.ext.koin.androidContext
@@ -15,7 +16,7 @@ class ZemogaApplication: Application() {
         startKoin {
             androidLogger()
             androidContext(this@ZemogaApplication)
-            modules(coreModule, domainModule, featureModule)
+            modules(coreModule, domainModule, dataModule, featureModule)
         }
     }
 }

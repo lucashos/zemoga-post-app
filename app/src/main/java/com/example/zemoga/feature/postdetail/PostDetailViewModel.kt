@@ -7,16 +7,22 @@ import com.example.zemoga.domain.ResultState
 import com.example.zemoga.domain.entities.Post
 import com.example.zemoga.domain.entities.UserAndComments
 import com.example.zemoga.domain.usecase.GetUserAndCommentsUseCase
+import com.example.zemoga.domain.usecase.ToggleFavoriteUseCase
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class PostDetailViewModel(
-    private val getUserAndCommentsUseCase: GetUserAndCommentsUseCase
+    private val getUserAndCommentsUseCase: GetUserAndCommentsUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase
 ) : ViewModel() {
     private val disposables = CompositeDisposable()
-    private val _userAndCommentsLiveData = MutableLiveData<ResultState<UserAndComments>>()
 
+    private val _userAndCommentsLiveData = MutableLiveData<ResultState<UserAndComments>>()
     val userAndCommentsLiveData: LiveData<ResultState<UserAndComments>>
         get() = _userAndCommentsLiveData
+
+    private val _favoritePostLiveData = MutableLiveData<Post>()
+    val favoritePostLiveData
+        get() = _favoritePostLiveData
 
 
     fun getUserAndComments(post: Post) {
@@ -27,6 +33,17 @@ class PostDetailViewModel(
         }).also {
             disposables.add(it)
         }
+    }
+
+    fun onFavoriteClick(post: Post) {
+        toggleFavoriteUseCase.execute(post)
+            .subscribe { _favoritePostLiveData.postValue(post) }
+            .also { disposables.add(it) }
+    }
+
+    override fun onCleared() {
+        disposables.clear()
+        super.onCleared()
     }
 
 }

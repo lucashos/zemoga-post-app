@@ -1,4 +1,4 @@
-package com.example.zemoga.domain.service
+package com.example.zemoga.data.service
 
 import com.example.zemoga.domain.entities.Comment
 import com.example.zemoga.domain.entities.Post

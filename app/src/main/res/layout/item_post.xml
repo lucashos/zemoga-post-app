@@ -11,9 +11,10 @@
     <TextView
         android:id="@+id/post_title"
         style="@style/PostListTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dimen_small"
+        app:layout_constraintEnd_toStartOf="@id/post_delete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="delectus aut autem"/>
@@ -21,12 +22,24 @@
     <TextView
         android:id="@+id/post_body"
         style="@style/PostListBody"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/dimen_small"
         android:layout_marginTop="@dimen/dimen_small"
+        android:layout_marginEnd="@dimen/dimen_small"
+        android:maxLines="2"
+        android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/post_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/post_delete"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/post_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

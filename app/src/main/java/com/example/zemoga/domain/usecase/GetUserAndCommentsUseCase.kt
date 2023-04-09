@@ -2,7 +2,7 @@ package com.example.zemoga.domain.usecase
 
 import com.example.zemoga.domain.entities.Post
 import com.example.zemoga.domain.entities.UserAndComments
-import com.example.zemoga.domain.service.JsonPlaceholderService
+import com.example.zemoga.data.service.JsonPlaceholderService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 

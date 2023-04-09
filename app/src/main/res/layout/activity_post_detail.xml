@@ -2,10 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/post_detail_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,15 +18,30 @@
             style="@style/PostDetailTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Post Title" />
 
         <TextView
             android:id="@+id/tv_post_detail_author"
             style="@style/PostDetailAuthor"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_tiny"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_detail_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ctv_favourite"
             tools:text="Post author" />
+
+        <CheckedTextView
+            android:id="@+id/ctv_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:drawableEnd="@android:drawable/btn_star"
+            app:layout_constraintTop_toTopOf="@id/tv_post_detail_author"
+            app:layout_constraintBottom_toBottomOf="@id/tv_post_detail_author"
+            app:layout_constraintStart_toEndOf="@id/tv_post_detail_author"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/tv_post_detail_body"
@@ -34,16 +49,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_medium"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_detail_author"
             tools:text="Post body" />
 
-
-        <TextView
-            android:id="@+id/tv_post_detail_comment_user"
-            style="@style/PostDetailComments"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ctn_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_medium"
-            android:text="@string/post_comments" />
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_detail_body">
+            <TextView
+                android:id="@+id/tv_post_detail_comment_user"
+                style="@style/PostDetailComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_medium"
+                android:text="@string/post_comments" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
