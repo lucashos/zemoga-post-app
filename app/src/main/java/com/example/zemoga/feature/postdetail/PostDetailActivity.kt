@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zemoga.databinding.ActivityPostDetailBinding
 import com.example.zemoga.databinding.ItemPostDetailCommentBinding
-import com.example.zemoga.domain.ResultState
 import com.example.zemoga.domain.entities.Comment
 import com.example.zemoga.domain.entities.Post
 import org.koin.android.ext.android.inject
@@ -50,18 +49,10 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        viewModel.userAndCommentsLiveData.observe({ lifecycle }) { state ->
-            when (state) {
-                is ResultState.Success -> {
-                    binding.tvPostDetailAuthor.text = state.data.user.authorInformation
-                    addComments(state.data.comments)
-                }
-                else -> {
-
-                }
-            }
+        viewModel.userAndCommentsLiveData.observe({ lifecycle }) { result ->
+            binding.tvPostDetailAuthor.text = result.user.authorInformation
+            addComments(result.comments)
         }
-
         viewModel.favoritePostLiveData.observe({ lifecycle }) {
             binding.ctvFavourite.isChecked = it.isFavorite
         }

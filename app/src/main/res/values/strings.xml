@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Zemoga</string>
     <string name="post_comments">Comments:</string>
+    <string name="favorites_header">Favorites</string>
+    <string name="posts_header">Posts</string>
+    <string name="posts_clear_list">Clear</string>
 </resources>

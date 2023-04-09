@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zemoga.databinding.ActivityPostListBinding
-import com.example.zemoga.domain.ResultState
 import com.example.zemoga.domain.entities.Post
 import com.example.zemoga.feature.postdetail.PostDetailActivity
 import com.example.zemoga.feature.postdetail.PostDetailActivity.Companion.EXTRA_POST
@@ -20,13 +19,24 @@ class PostListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setupSwipeRefresh()
+        setupRecyclerView()
+        setupObservables()
+    }
+
+    private fun setupSwipeRefresh() {
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.listPosts()
+        }
+    }
+
+    private fun setupRecyclerView() {
         binding.rvPostList.addItemDecoration(
             DividerItemDecoration(
                 this,
                 LinearLayoutManager.VERTICAL
             )
         )
-        setupObservables()
     }
 
     override fun onResume() {
@@ -35,23 +45,10 @@ class PostListActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        viewModel.todoListLiveData.observe({ lifecycle }) { result ->
-            when (result) {
-                is ResultState.Success -> {
-                    binding.rvPostList.adapter = PostListAdapter(result.data, ::onPostClick, ::onPostDeleted)
-                }
-                is ResultState.Error -> {
-
-                }
-                is ResultState.Loading -> {
-
-                }
-            }
+        viewModel.postListLiveData.observe({ lifecycle }) { result ->
+            binding.swipeRefresh.isRefreshing = false
+            binding.rvPostList.adapter = PostListAdapter(result, ::onPostClick)
         }
-    }
-
-    private fun onPostDeleted(post: Post) {
-
     }
 
     private fun onPostClick(post: Post) {

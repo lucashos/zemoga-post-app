@@ -3,7 +3,6 @@ package com.example.zemoga.feature.postdetail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.zemoga.domain.ResultState
 import com.example.zemoga.domain.entities.Post
 import com.example.zemoga.domain.entities.UserAndComments
 import com.example.zemoga.domain.usecase.GetUserAndCommentsUseCase
@@ -16,8 +15,8 @@ class PostDetailViewModel(
 ) : ViewModel() {
     private val disposables = CompositeDisposable()
 
-    private val _userAndCommentsLiveData = MutableLiveData<ResultState<UserAndComments>>()
-    val userAndCommentsLiveData: LiveData<ResultState<UserAndComments>>
+    private val _userAndCommentsLiveData = MutableLiveData<UserAndComments>()
+    val userAndCommentsLiveData: LiveData<UserAndComments>
         get() = _userAndCommentsLiveData
 
     private val _favoritePostLiveData = MutableLiveData<Post>()
@@ -27,9 +26,9 @@ class PostDetailViewModel(
 
     fun getUserAndComments(post: Post) {
         getUserAndCommentsUseCase.execute(post).subscribe({ response ->
-            _userAndCommentsLiveData.postValue(ResultState.Success(response))
+            _userAndCommentsLiveData.postValue(response)
         }, { error ->
-            _userAndCommentsLiveData.postValue(ResultState.Error(error.message, error))
+            error.printStackTrace()
         }).also {
             disposables.add(it)
         }

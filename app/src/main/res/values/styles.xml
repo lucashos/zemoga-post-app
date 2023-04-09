@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="PostListHeader" parent="TextAppearance.MaterialComponents.Headline4" />
+
+    <style name="PostListAction" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">?attr/colorSecondaryVariant</item>
+    </style>
+
     <style name="PostListTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textColor">?attr/colorPrimary</item>
     </style>
