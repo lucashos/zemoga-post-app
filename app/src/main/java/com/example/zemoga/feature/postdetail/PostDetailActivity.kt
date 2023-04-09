@@ -34,6 +34,7 @@ class PostDetailActivity : AppCompatActivity() {
 
     private fun setupFavoriteButton(post: Post) {
         with(binding.ctvFavourite) {
+            isChecked = post.isFavorite
             setOnClickListener {
                 viewModel.onFavoriteClick(post)
             }

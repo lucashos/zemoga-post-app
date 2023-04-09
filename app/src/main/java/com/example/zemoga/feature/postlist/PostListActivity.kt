@@ -20,18 +20,18 @@ class PostListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        viewModel.listPosts()
-
         binding.rvPostList.addItemDecoration(
             DividerItemDecoration(
                 this,
                 LinearLayoutManager.VERTICAL
             )
         )
-
         setupObservables()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.listPosts()
     }
 
     private fun setupObservables() {

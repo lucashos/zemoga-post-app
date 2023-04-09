@@ -14,12 +14,19 @@ class ListPostsUseCase(
     fun execute(): Single<List<Post>> {
         return service.listPosts()
             .zipWith(postDao.findFavourites()) { posts, favorites ->
-                val mutablePosts = posts.toMutableList()
-                mutablePosts.removeIf { favorites.firstOrNull { fav -> it.id == fav.id } != null }
-                mutablePosts.addAll(favorites)
-                mutablePosts.sortedBy { it.id }.toList()
+                mergePosts(posts.toMutableList(), favorites.toMutableList())
             }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    private fun mergePosts(
+        posts: MutableList<Post>,
+        favorites: MutableList<Post>
+    ): List<Post> {
+        posts.removeIf { favorites.firstOrNull { fav -> it.id == fav.id } != null }
+        favorites.sortedBy { it.id }
+        favorites.addAll(posts)
+        return favorites.toList()
     }
 }

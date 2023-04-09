@@ -2,6 +2,7 @@ package com.example.zemoga.feature.postlist
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +48,8 @@ class PostListAdapter(
             binding.run {
                 postTitle.text = post.title
                 postBody.text = post.body
+                postFavorite.setVisible(post.isFavorite)
+                postDelete.setVisible(!post.isFavorite)
                 root.setOnClickListener { onItemClick(post) }
                 postDelete.setOnClickListener {
                     onDeleteClick(post)
@@ -54,4 +57,8 @@ class PostListAdapter(
             }
         }
     }
+}
+
+private fun View.setVisible(visible: Boolean) {
+    visibility = if (visible) View.VISIBLE else View.GONE
 }
