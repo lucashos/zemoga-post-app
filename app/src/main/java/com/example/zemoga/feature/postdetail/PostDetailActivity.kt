@@ -49,11 +49,11 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun setupObservables() {
-        viewModel.userAndCommentsLiveData.observe({ lifecycle }) { result ->
+        viewModel.userAndCommentsLiveData.observe(this) { result ->
             binding.tvPostDetailAuthor.text = result.user.authorInformation
             addComments(result.comments)
         }
-        viewModel.favoritePostLiveData.observe({ lifecycle }) {
+        viewModel.favoritePostLiveData.observe(this) {
             binding.ctvFavourite.isChecked = it.isFavorite
         }
     }

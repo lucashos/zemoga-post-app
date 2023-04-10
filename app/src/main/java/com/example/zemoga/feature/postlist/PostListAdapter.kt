@@ -17,11 +17,10 @@ private const val POSTS_HEADER = 2
 private const val POST_ITEM = 3
 
 class PostListAdapter(
-    items: List<Post>,
     private val onItemClick: (Post) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
-    private val posts = items.filter { !it.isFavorite }.toMutableList()
-    private val favorites = items.filter { it.isFavorite }.toMutableList()
+    private val posts = ArrayList<Post>()
+    private val favorites = ArrayList<Post>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
@@ -96,6 +95,14 @@ class PostListAdapter(
         val index = posts.indexOf(post)
         posts.remove(post)
         notifyItemRemoved(index)
+    }
+
+    fun updateDataset(items: List<Post>) {
+        posts.clear()
+        favorites.clear()
+        posts.addAll(items.filter { !it.isFavorite })
+        favorites.addAll(items.filter { it.isFavorite })
+        notifyDataSetChanged()
     }
 }
 

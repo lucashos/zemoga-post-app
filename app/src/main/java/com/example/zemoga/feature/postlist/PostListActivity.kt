@@ -19,6 +19,7 @@ class PostListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        viewModel.refreshPostsFromApi()
         setupSwipeRefresh()
         setupRecyclerView()
         setupObservables()
@@ -26,7 +27,7 @@ class PostListActivity : AppCompatActivity() {
 
     private fun setupSwipeRefresh() {
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.listPosts()
+            viewModel.refreshPostsFromApi()
         }
     }
 
@@ -37,18 +38,22 @@ class PostListActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL
             )
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.listPosts()
+        binding.rvPostList.adapter = PostListAdapter(::onPostClick)
     }
 
     private fun setupObservables() {
-        viewModel.postListLiveData.observe({ lifecycle }) { result ->
-            binding.swipeRefresh.isRefreshing = false
-            binding.rvPostList.adapter = PostListAdapter(result, ::onPostClick)
+        viewModel.postListLiveData.observe(this) { result ->
+            updateRecyclerViewDataset(result)
         }
+
+        viewModel.refreshLiveData.observe(this) {
+            updateRecyclerViewDataset(it)
+            binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    private fun updateRecyclerViewDataset(posts: List<Post>) {
+        (binding.rvPostList.adapter as PostListAdapter).updateDataset(posts)
     }
 
     private fun onPostClick(post: Post) {
